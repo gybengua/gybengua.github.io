@@ -99,7 +99,7 @@ function resizeBackground(id, width, height)
 	handVar.style.backgroundSize = (100*scale) + "px " + (123*scale) + "px";
 	handVar.style.left = (213*scale*0.6) + "px";
 	handVar.style.top  = (269*scale*0.6) + "px";
-	/*
+	
 	intervalId = setInterval(function()
 						  {
 						  	document.getElementById("turnplateBackground").style.transform= "rotate(" + rotateAng + "deg)";
@@ -107,7 +107,7 @@ function resizeBackground(id, width, height)
 						  	if(rotateAng > 360)
 						  		rotateAng = rotateAng-360;
 						  	console.log(rotateAng);
-						  }, 30);*/
+						  }, 30);
 }
 
 var intervalId;
