@@ -15,6 +15,10 @@ function resizeBackground(id, width, height)
 		document.body.offsetWidth + "px";
 	document.getElementById(id).style.height = 
 		document.body.offsetHeight + "px";
+	document.getElementBydId("turnplate").style.width = 
+		document.body.offsetWidth + "px";
+	document.getElementBydId("turnplate").style.height = 
+		document.body.offsetHeight + "px";
 	var divHeight = document.getElementById(id).clientHeight;
 	var divWidth  = document.getElementById(id).clientWidth;
 	var turnplateWidth  = 635.0;
