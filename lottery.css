@@ -1,0 +1,235 @@
+﻿html
+{
+	overflow:hidden;
+	//border:1px solid red;
+}
+
+body
+{
+	padding-left:0px;
+	//border:1px solid blue;
+}
+
+#turnplateBackground
+{
+	position:absolute;
+	width:100%;
+	height:100%;
+	background:url("images/圆盘背景712X714.png") no-repeat center;
+	z-index:0;
+}
+
+#turnplate
+{
+	position:absolute;
+	width:100%;
+	height:100%;
+	background:url("images/圆盘635X635.png") no-repeat center;
+	z-index:1;
+	//border:1px solid blue;
+}
+
+#luckybagdiv
+{
+	position:absolute;
+	z-index:2;		
+	
+	//border:1px solid blue;
+	
+}
+#luckybag
+{
+	position:absolute;
+	background:url("images/幸运福袋160X160.png") no-repeat center;		
+	//border:1px solid red;
+	z-index:3
+}
+#luckybagtext
+{
+	position:absolute;
+	z-index:3;
+	//border:1px solid blue;
+	color:#bd0000;
+	font-family:"Microsoft YaHei";
+}
+
+#redbagdivbackground
+{
+	position:absolute;
+	width:100%;
+	height:100%;
+	z-index:3;
+}
+
+#redbagdiv
+{
+	position:absolute;
+	z-index:2;		
+	
+	//border:1px solid blue;
+}
+#redbag
+{
+	position:absolute;
+	background:url("images/惊喜红包100X100.png") no-repeat center;		
+	//border:1px solid red;
+	z-index:3
+}
+#redbagtext
+{
+	position:absolute;
+	z-index:3;
+	//border:1px solid blue;
+	color:#bd0000;
+	font-family:"Microsoft YaHei";
+}
+
+#ticketdivbackground
+{
+	position:absolute;
+	width:100%;
+	height:100%;
+	z-index:3;
+}
+
+#ticketdiv
+{
+	position:absolute;
+	z-index:2;		
+	
+	//border:1px solid blue;
+}
+#ticket
+{
+	position:absolute;
+	background:url("images/商品礼券100X100.png") no-repeat center;		
+	//border:1px solid red;
+	z-index:3
+}
+
+#tickettext
+{
+	position:absolute;
+	z-index:3;
+	//border:1px solid blue;
+	color:#bd0000;
+	font-family:"Microsoft YaHei";
+}
+
+#giftdivbackground
+{
+	position:absolute;
+	width:100%;
+	height:100%;
+	z-index:3;
+}
+
+#giftdiv
+{
+	position:absolute;
+	z-index:2;		
+	
+	//border:1px solid blue;
+}
+#gift
+{
+	position:absolute;
+	background:url("images/神秘好礼100X100.png") no-repeat center;		
+	//border:1px solid red;
+	z-index:3
+}
+#gifttext
+{
+	position:absolute;
+	z-index:3;
+	//border:1px solid blue;
+	color:#bd0000;
+	font-family:"Microsoft YaHei";
+}
+
+#giftbagdivbackground
+{
+	position:absolute;
+	width:100%;
+	height:100%;
+	z-index:3;
+}
+
+#giftbagdiv
+{
+	position:absolute;
+	z-index:2;		
+	
+	//border:1px solid blue;
+}
+#giftbag
+{
+	position:absolute;
+	background:url("images/投资礼包100X100.png") no-repeat center;		
+	//border:1px solid red;
+	z-index:3
+}
+#giftbagtext
+{
+	position:absolute;
+	z-index:3;
+	//border:1px solid blue;
+	color:#bd0000;
+	font-family:"Microsoft YaHei";
+}
+
+#thankyoudivbackground
+{
+	position:absolute;
+	width:100%;
+	height:100%;
+	z-index:3;
+}
+
+#thankyoudiv
+{
+	position:absolute;
+	z-index:2;		
+	
+	//border:1px solid blue;
+}
+#thankyou
+{
+		position:absolute;
+		background:url("images/谢谢参与160X160.png") no-repeat center;		
+		//border:1px solid red;
+		z-index:3
+}
+#thankyoutext
+{
+	position:absolute;
+	z-index:3;
+	//border:1px solid blue;
+	color:#bd0000;
+	font-family:"Microsoft YaHei";
+}
+
+#start
+{
+	position:absolute;
+	z-index:3;
+	background:url("images/开始抽奖213X269.png") no-repeat center;
+}
+
+#hand
+{
+	position:absolute;
+	z-index:3;
+	background:url("images/hand100X123.png") no-repeat center;
+}
+
+#win
+{
+	position:absolute;
+	z-index:999;
+	display:none;
+	
+	width:672px;
+	height:825px;
+	background:url("images/中奖.png") no-repeat center;
+}
