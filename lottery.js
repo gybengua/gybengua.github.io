@@ -13,9 +13,9 @@ window.onresize = function()
 function resizeBackground(id, width, height)
 {
 	document.getElementById(id).style.width = 
-		document.getElementById("mainbody").clientWidth + "px";
+		document.body.offsetWidth + "px";
 	document.getElementById(id).style.height = 
-		document.getElementById("mainbody").clientHeight + "px";
+		document.body.offsetHeight + "px";
 	var divHeight = document.getElementById(id).clientHeight;
 	var divWidth  = document.getElementById(id).clientWidth;
 	var turnplateWidth  = 635.0;
