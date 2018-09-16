@@ -1,7 +1,6 @@
 window.onload = function init()
 {
 	resizeBackground("turnplateBackground", 712.0, 714.0);
-	alert('hello');
 };
 /*
 window.onresize = function()
