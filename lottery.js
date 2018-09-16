@@ -2,11 +2,11 @@
 {
 	resizeBackground("turnplateBackground", 712.0, 714.0);
 };
-
+/*
 window.onresize = function()
 {
 		resizeBackground("turnplateBackground", 712.0, 714.0);	
-}
+}*/
 
 
 function resizeBackground(id, width, height)
