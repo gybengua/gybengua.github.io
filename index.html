@@ -1,67 +1,300 @@
 <html>
 	<head>
-		<meta charset="utf-8"/>
-		<link rel="stylesheet" href="lottery.css" type="text/css"/>
-		<script src="lottery.js"></script>
+		<meta charset="utf-8" />
+		<style>
+		body
+{
+	overflow:hidden;
+	margin: 0 0 0 0;
+}
+#TurnPlateBg
+{
+	
+	//border:1px solid blue;
+}
+#TurnPlate
+{
+	position:absolute;
+	//border:1px solid red;
+	//display:none;
+	z-index:1;
+}
+#Torus1
+{
+	position:absolute;
+	z-index:0;
+}
+#Torus2
+{
+}
+#Prize1,#Prize2,#Prize3,#Prize4,
+#Prize5,#Prize6,#Start
+{ position:absolute; z-index:1; }
+#Prize1Text, #Prize2Text, #Prize3Text, 
+#Prize4Text, #Prize5Text, #Prize6Text, #Hand
+{ position:absolute; z-index:1; }
+#Prize
+{
+	position:absolute;
+	z-index:999;
+	display:none;
+}
+		</style>
+		<script>
+		window.onresize = adjustEleSize;
+window.onload = function()
+{
+	adjustEleSize();
+	setRotate();
+}
+function startPrize()
+{
+	document.getElementById("Hand").style.display = "none";
+	rotateV = rotateV*20;
+	setTimeout(function(){
+		stopRotate = true;
+	}, 2000);
+	//stopRotate = true;
+}
+
+function handlePrize(prizeAng)
+{
+	var prizeEle = document.getElementById("Prize");
+	prizeEle.style.display = "block";
+	prizeEle.style.left = 0;
+	prizeEle.style.top = 0;
+	prizeEle.style.width  = document.getElementsByTagName("body")[0].clientWidth  + "px";
+	prizeEle.style.height = document.getElementsByTagName("body")[0].clientHeight + "px";
+	prizeEle.style.background = "black";
+	prizeEle.style.opacity = "0.6";
+	switch(prizeAng)
+	{
+		case prize1Ang:
+			luckyBagPrize();
+			break;
+		case prize2Ang:
+			alert("惊喜红包");
+			break;
+		case prize3Ang:
+			alert("神秘好礼");
+			break;
+		case prize4Ang:
+			alert("投资礼包");
+			break;
+		case prize5Ang:
+			alert("商品礼券");
+			break;
+		case prize6Ang:
+			alert("谢谢参与");
+			break;
+	}
+}
+
+function luckyBagPrize()
+{
+	alert("幸运福袋");
+}
+
+var prize1Ang = 0;
+var prize2Ang = 300;
+var prize3Ang = 240;
+var prize4Ang = 180;
+var prize5Ang = 120;
+var prize6Ang = 60;
+var stopRotate  = false;
+var dstAng      = prize1Ang;
+var rotateV     = 360 / 25000;
+var calAccel    = true;
+
+
+function setRotate()
+{
+	var refreshInterval = 30;
+	var rotateAng = 0;
+	var showTorus = true;
+	var i = 0;
+	var handScale = 1;
+	var handScalePerTime = 0.1;
+	var turnPlateBgEle = document.getElementById("TurnPlateBg");
+	var handEle = document.getElementById("Hand");
+	var acceleration = 0;
+	function rotate()
+	{
+		if(rotateV < 0)
+		{
+			rotateAng = dstAng;
+			clearInterval(intervalID);
+			handlePrize(dstAng);
+		}
+		turnPlateBgEle.style.transform = "rotate(" + rotateAng + "deg)";
+		if(stopRotate)
+		{			
+			if(calAccel)
+			{
+				spatium = 360 - rotateAng + dstAng;
+				acceleration = -rotateV*rotateV / 2 / spatium;
+				calAccel = false;			
+			}	
+		}
+		rotateAng += rotateV*refreshInterval + 0.5*acceleration*refreshInterval*refreshInterval;
+		rotateV = rotateV + acceleration*refreshInterval;
+
+		if(rotateAng >= 360)
+			rotateAng -= 360;
+		
+		i++;		
+		if(i == 20)
+			i = 0;
+		if(i%3 == 0)
+		{
+			handScale += handScalePerTime;
+			if( Math.abs(handScale-1) > 0.4)
+				handScalePerTime *= -1;
+			handEle.style.transform = "scale(" + handScale + ")";
+		}
+		if(i==0)
+		{			
+			if(showTorus)
+			{
+				document.getElementById("Torus2").style.display = "none";				
+				showTorus = false;
+			}
+			else
+			{				
+				document.getElementById("Torus2").style.display = "block";
+				showTorus = true;
+			}
+		}
+					
+	}
+	var intervalID = setInterval(rotate, refreshInterval);
+}
+
+function adjustEleSize()
+{
+	var bodyEle = document.getElementsByTagName("body")[0];
+	var bodyClientWidth  = bodyEle.clientWidth;
+	var bodyClientHeight = bodyEle.clientHeight;
+//console.log("bodyClientWidth: " + bodyClientWidth + " bodyClientHeight: " + bodyClientHeight);	
+	
+	var turnPlateBgOriginalWidth  = 712;	// 背景的原始宽度
+	var turnPlateBgOriginalHeight = 714;	// 背景的原始高度
+	var scale  = 1.0;
+	var scale1 = bodyClientWidth  /  turnPlateBgOriginalWidth;
+	var scale2 = bodyClientHeight /  Math.sqrt( (turnPlateBgOriginalWidth)*(turnPlateBgOriginalWidth) + (turnPlateBgOriginalHeight)*(turnPlateBgOriginalHeight) );
+	scale = Math.min(scale1, scale2);
+	
+	var turnPlateBgEle = document.getElementById("TurnPlateBg");
+	turnPlateBgEle.style.width  = turnPlateBgOriginalWidth*scale  + "px";
+	turnPlateBgEle.style.height = turnPlateBgOriginalHeight*scale + "px";
+
+	turnPlateBgEle.style.marginLeft   = (bodyClientWidth-turnPlateBgEle.clientWidth) / 2;
+	turnPlateBgEle.style.marginTop    = (bodyClientHeight-turnPlateBgOriginalHeight*scale) / 2;
+	turnPlateBgEle.style.background = "url(images/TurnPlateBg712X714.png) no-repeat center";
+	turnPlateBgEle.style.backgroundSize = turnPlateBgOriginalWidth*scale + "px " + 
+		turnPlateBgOriginalHeight*scale + "px";
+		
+	var torus1OriginalWidth  = 712;
+	var torus1OriginalHeight = 714;
+	var torus1Ele = document.getElementById("Torus1");
+	torus1Ele.style.width  = turnPlateBgEle.clientWidth  + "px";
+	torus1Ele.style.height = turnPlateBgEle.clientHeight + "px";
+	torus1Ele.style.marginLeft = 0;
+	torus1Ele.style.marginTop  = 0;
+	torus1Ele.style.background = "url(images/Torus1-712X714.png) no-repeat center";
+	torus1Ele.style.backgroundSize = torus1OriginalWidth*scale + "px " + 
+		torus1OriginalHeight*scale + "px";
+		
+	var torus2OriginalWidth  = 712;
+	var torus2OriginalHeight = 714;
+	var torus2Ele = document.getElementById("Torus2");
+	torus2Ele.style.width  = turnPlateBgEle.clientWidth  + "px";
+	torus2Ele.style.height = turnPlateBgEle.clientHeight + "px";
+	torus2Ele.style.marginLeft = 0;
+	torus2Ele.style.marginTop  = 0;
+	torus2Ele.style.background = "url(images/Torus2-712X714.png) no-repeat center";
+	torus2Ele.style.backgroundSize = torus2OriginalWidth*scale + "px " + 
+		torus2OriginalHeight*scale + "px";
+	
+	var turnPlateImgOriginalWidth  = 635;
+	var turnPlateImgOriginalHeight = 635;
+	var turnPlateEle = document.getElementById("TurnPlate");
+	turnPlateEle.style.width  = turnPlateBgEle.clientWidth;
+	turnPlateEle.style.height = turnPlateBgEle.clientHeight;
+	turnPlateEle.style.background = "url(images/TurnPlate635X635.png) no-repeat center";
+	turnPlateEle.style.backgroundSize = turnPlateImgOriginalWidth*scale + "px " + 
+		turnPlateImgOriginalHeight*scale + "px";
+	
+	function adjustPrizeSize(id, url, width, height, ang, descri)
+	{
+		var prize1Ele = document.getElementById(id);
+		prize1Ele.style.width  = (width*scale) + "px";
+		prize1Ele.style.height = (height*scale) + "px";
+		//prize1Ele.style.border = "1px solid blue";
+		prize1Ele.style.background = url + " no-repeat center";
+		prize1Ele.style.backgroundSize = (width*scale) + "px " + (height*scale) + "px";
+		prize1Ele.style.left = (turnPlateBgOriginalHeight*scale-width*scale)/2;
+		prize1Ele.style.bottom = turnPlateBgOriginalHeight*scale/2 + turnPlateBgOriginalHeight*scale/5.5;
+		var originY = (turnPlateBgOriginalHeight*scale/5.5) / (height*scale)*100 + 100;	
+		prize1Ele.style.transformOrigin = "50% " + originY + "%";
+		prize1Ele.style.transform = "rotate(" + ang +"deg)";
+		
+		var prizeText = document.getElementById(id + "Text");
+		prizeText.innerHTML  = descri;
+		prizeText.style.width  = 130*scale + "px";
+		prizeText.style.height = 50*scale + "px";
+		//prizeText.style.border = "1px solid blue";
+		prizeText.style.left = (width*scale-130*scale)/2;
+		prizeText.style.top  = -45*scale;
+		prizeText.style.fontFamily = "Microsoft YaHei";
+		prizeText.style.fontSize   = (20*scale) + "pt";
+		prizeText.style.color      = "purple";
+		prizeText.style.textAlign = "center";
+	}
+	adjustPrizeSize("Prize1", "url(images/Prize1-160X160.png)", 160*0.625, 160*0.625, 0, "幸运福袋");
+	adjustPrizeSize("Prize2", "url(images/Prize2-100X100.png)", 100, 100, 60, "惊喜红包");
+	adjustPrizeSize("Prize3", "url(images/Prize3-100X100.png)", 100, 100, 120, "神秘好礼");
+	adjustPrizeSize("Prize4", "url(images/Prize4-100X100.png)", 100, 100, 180, "投资礼包");
+	adjustPrizeSize("Prize5", "url(images/Prize5-100X100.png)", 100, 100, 240, "商品礼券");
+	adjustPrizeSize("Prize6", "url(images/Prize6-160X160.png)", 160*0.7, 160*0.7, 300, "谢谢参与");
+
+	
+	var startEle = document.getElementById("Start");
+	//startEle.style.border = "1px solid blue";
+	startEle.style.width  = (213*0.8*scale) + "px";
+	startEle.style.height = (269*0.8*scale) + "px";
+	startEle.style.background = "url(images/Start213X269.png) no-repeat center";
+	startEle.style.backgroundSize = (213*0.8*scale) + "px " + (269*0.8*scale) + "px";
+	startEle.style.left = (bodyClientWidth-213*0.8*scale)/2;
+	startEle.style.top = (bodyClientHeight-269*0.8*scale)/2 - 269*0.8*scale*0.08;
+	
+	var handEle = document.getElementById("Hand");
+	//handEle.style.border = "1px solid blue";
+	handEle.style.width  = (100*0.8*scale) + "px";
+	handEle.style.height = (123*0.8*scale) + "px";
+	handEle.style.background = "url(images/Hand100X123.png) no-repeat center";
+	handEle.style.backgroundSize = (100*0.8*scale) + "px " + (123*0.8*scale) + "px";
+	handEle.style.left = (213*0.8*scale)/2 ;
+	handEle.style.top  = (269*scale*0.8)/2- 123*0.8*scale*0.08 + (123*scale*0.8)/2;;
+}
+		</script>		
 	</head>
 	<body>
-		<div id="turnplateBackground">
-			<div id="turnplate">
-				<div id="luckybagdiv">				
-					<div id="luckybag">
-						<p id="luckybagtext">幸运福袋</p>
-					</div>
-				</div>
-				<div id="redbagdivbackground">
-					<div id="redbagdiv">				
-						<div id="redbag">
-							<p id="redbagtext">惊喜红包</p>
-						</div>
-					</div>
-				</div>
-				
-				<div id="ticketdivbackground">
-					<div id="ticketdiv">				
-						<div id="ticket">
-							<p id="tickettext">商品礼券</p>
-						</div>
-					</div>
-				</div>
-				
-				<div id="giftdivbackground">
-					<div id="giftdiv">				
-						<div id="gift">
-							<p id="gifttext">神秘好礼</p>
-						</div>
-					</div>
-				</div>
-				
-				<div id="giftbagdivbackground">
-					<div id="giftbagdiv">				
-						<div id="giftbag">
-							<p id="giftbagtext">投资礼包</p>
-						</div>
-					</div>
-				</div>
-				
-				<div id="thankyoudivbackground">
-					<div id="thankyoudiv">				
-						<div id="thankyou">
-							<p id="thankyoutext">谢谢参与</p>
-						</div>
-					</div>
-				</div>
-				
+		<div id="TurnPlateBg">
+			<div id="Torus1">
+				<div id="Torus2"></div>
 			</div>	
+			<div id="TurnPlate">
+				<div id="Prize1"><div id="Prize1Text"></div></div>
+				<div id="Prize2"><div id="Prize2Text"></div></div>
+				<div id="Prize3"><div id="Prize3Text"></div></div>
+				<div id="Prize4"><div id="Prize4Text"></div></div>
+				<div id="Prize5"><div id="Prize5Text"></div></div>
+				<div id="Prize6"><div id="Prize6Text"></div></div>				
+			</div>			
 		</div>
-		<div id="start" onclick="lottery();">			
-			<div id="hand" >
-			</div>
-		</div>
-		<div id="win">
-			
-		</div>
-		
-		
+		<div id="Start" onclick="startPrize();">
+		<div id="Hand"></div></div>
+		<div id="Prize"></div>
 	</body>
 </html>
