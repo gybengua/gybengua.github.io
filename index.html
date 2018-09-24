@@ -33,11 +33,22 @@
 #Prize1Text, #Prize2Text, #Prize3Text, 
 #Prize4Text, #Prize5Text, #Prize6Text, #Hand
 { position:absolute; z-index:1; }
-#Prize
+#PrizeBg
 {
 	position:absolute;
 	z-index:999;
 	display:none;
+}
+#Prize
+{
+	//position:absolute;
+	//left:50%;
+	//right:50%;
+	text-align:center;
+	font-family: Microsoft YaHei;
+	font-size:20pt;
+	font-color:purple;
+	opacity:1;
 }
 		</style>
 		<script>
@@ -59,14 +70,14 @@ function startPrize()
 
 function handlePrize(prizeAng)
 {
-	var prizeEle = document.getElementById("Prize");
-	prizeEle.style.display = "block";
-	prizeEle.style.left = 0;
-	prizeEle.style.top = 0;
-	prizeEle.style.width  = document.getElementsByTagName("body")[0].clientWidth  + "px";
-	prizeEle.style.height = document.getElementsByTagName("body")[0].clientHeight + "px";
-	prizeEle.style.background = "black";
-	prizeEle.style.opacity = "0.6";
+	var prizeBgEle = document.getElementById("PrizeBg");
+	prizeBgEle.style.display = "block";
+	prizeBgEle.style.left = 0;
+	prizeBgEle.style.top = 0;
+	prizeBgEle.style.width  = document.getElementsByTagName("body")[0].clientWidth  + "px";
+	prizeBgEle.style.height = document.getElementsByTagName("body")[0].clientHeight + "px";
+	prizeBgEle.style.background = "black";
+	prizeBgEle.style.opacity = "0.6";
 	switch(prizeAng)
 	{
 		case prize1Ang:
@@ -92,7 +103,14 @@ function handlePrize(prizeAng)
 
 function luckyBagPrize()
 {
-	alert("幸运福袋");
+	//alert("幸运福袋");
+	
+	var prizeLinkEle = document.getElementById("PrizeLink");
+	prizeLinkEle.innerHTML = prizeLinkEle.innerHTML + "幸运福袋";
+	
+	var prizeEle = document.getElementById("Prize");
+prizeEle.style.background="url(images/PrizeText.png) no-repeat center";	
+	prizeEle.style.marginTop  = (document.getElementById("PrizeBg").clientHeight-prizeEle.clientHeight)/2;
 }
 
 var prize1Ang = 0;
@@ -295,6 +313,11 @@ function adjustEleSize()
 		</div>
 		<div id="Start" onclick="startPrize();">
 		<div id="Hand"></div></div>
-		<div id="Prize"></div>
+		<div id="PrizeBg">
+		<div id="Prize">
+			<a id="PrizeLink" target="_blank" href="https://shop136176966.taobao.com/?spm=a230r.7195193.1997079397.2.H2OM0f">
+			立即领取</a>
+		</div>
+		</div>
 	</body>
 </html>
