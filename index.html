@@ -37,7 +37,10 @@
 {
 	position:absolute;
 	z-index:999;
-	display:none;
+	//display:none;
+	left:0;
+	top:0;
+	background-color:rgba(0, 0, 0, 0.5);
 }
 #Prize
 {
@@ -50,6 +53,9 @@
 	font-color:purple;
 	opacity:1;
 }
+#WinBg{}
+	#WinTopBg {}
+	#WinBottomBg {}
 		</style>
 		<script>
 		window.onresize = adjustEleSize;
@@ -57,6 +63,9 @@ window.onload = function()
 {
 	adjustEleSize();
 	setRotate();
+	
+	
+	//handlePrize(0);
 }
 function startPrize()
 {
@@ -70,14 +79,7 @@ function startPrize()
 
 function handlePrize(prizeAng)
 {
-	var prizeBgEle = document.getElementById("PrizeBg");
-	prizeBgEle.style.display = "block";
-	prizeBgEle.style.left = 0;
-	prizeBgEle.style.top = 0;
-	prizeBgEle.style.width  = document.getElementsByTagName("body")[0].clientWidth  + "px";
-	prizeBgEle.style.height = document.getElementsByTagName("body")[0].clientHeight + "px";
-	prizeBgEle.style.background = "black";
-	prizeBgEle.style.opacity = "0.6";
+	
 	switch(prizeAng)
 	{
 		case prize1Ang:
@@ -109,8 +111,8 @@ function luckyBagPrize()
 	prizeLinkEle.innerHTML = prizeLinkEle.innerHTML + "幸运福袋";
 	
 	var prizeEle = document.getElementById("Prize");
-prizeEle.style.background="url(images/PrizeText.png) no-repeat center";	
-	prizeEle.style.marginTop  = (document.getElementById("PrizeBg").clientHeight-prizeEle.clientHeight)/2;
+	prizeEle.style.background="url(images/PrizeText.png) no-repeat center";	
+	//prizeEle.style.marginTop  = (document.getElementById("PrizeBg").clientHeight-prizeEle.clientHeight)/2;
 }
 
 var prize1Ang = 0;
@@ -201,7 +203,7 @@ function adjustEleSize()
 	var scale1 = bodyClientWidth  /  turnPlateBgOriginalWidth;
 	var scale2 = bodyClientHeight /  Math.sqrt( (turnPlateBgOriginalWidth)*(turnPlateBgOriginalWidth) + (turnPlateBgOriginalHeight)*(turnPlateBgOriginalHeight) );
 	scale = Math.min(scale1, scale2);
-	
+console.log("scale: " + scale);	
 	var turnPlateBgEle = document.getElementById("TurnPlateBg");
 	turnPlateBgEle.style.width  = turnPlateBgOriginalWidth*scale  + "px";
 	turnPlateBgEle.style.height = turnPlateBgOriginalHeight*scale + "px";
@@ -294,6 +296,29 @@ function adjustEleSize()
 	handEle.style.backgroundSize = (100*0.8*scale) + "px " + (123*0.8*scale) + "px";
 	handEle.style.left = (213*0.8*scale)/2 ;
 	handEle.style.top  = (269*scale*0.8)/2- 123*0.8*scale*0.08 + (123*scale*0.8)/2;;
+	
+	
+	var prizeBgEle = document.getElementById("PrizeBg");
+	prizeBgEle.style.width  = document.getElementsByTagName("body")[0].clientWidth  + "px";
+	prizeBgEle.style.height = document.getElementsByTagName("body")[0].clientHeight + "px";
+	var winBgEle = document.getElementById("WinBg");
+	winBgEle.style.width = (672*0.8) + "px";
+	winBgEle.style.height = ((480+245)*0.8) + "px";
+	winBgEle.style.marginLeft = (prizeBgEle.clientWidth-(672*0.8))/2;
+	winBgEle.style.marginTop  = (prizeBgEle.clientHeight-(480+345)*0.8)/3;
+	var winTopBgEle = document.getElementById("WinTopBg");
+	winTopBgEle.style.background = "url(images/winTopBg672X480.png) no-repeat center";
+	winTopBgEle.style.width = (672*0.8) + "px";
+	winTopBgEle.style.height = (480*0.8) + "px";
+	winTopBgEle.style.backgroundSize = (672*0.8) + "px " + (480*0.8) + "px";
+	var winBottomBgEle = document.getElementById("WinBottomBg");
+	winBottomBgEle.style.background = "url(images/winBottomBg672X345.png) no-repeat center";
+	winBottomBgEle.style.width=(672*0.8) + "px";
+	winBottomBgEle.style.height = (345*0.8) + "px";
+	winBottomBgEle.style.backgroundSize = (672*0.8) + "px " + (345*0.8) + "px";
+	
+	//var prizeEle = document.getElementById("Prize");
+	//prizeEle.style.marginTop  = (document.getElementById("PrizeBg").clientHeight-prizeEle.clientHeight)/2;
 }
 		</script>		
 	</head>
@@ -314,10 +339,15 @@ function adjustEleSize()
 		<div id="Start" onclick="startPrize();">
 		<div id="Hand"></div></div>
 		<div id="PrizeBg">
-		<div id="Prize">
-			<a id="PrizeLink" target="_blank" href="https://shop136176966.taobao.com/?spm=a230r.7195193.1997079397.2.H2OM0f">
+			<div id="WinBg">
+				<div id="WinTopBg"></div>
+				<div id="WinBottomBg">
+					<div id="Prize">
+					<a id="PrizeLink" target="_blank" href="https://shop136176966.taobao.com/">
 			立即领取</a>
-		</div>
+					</div>
+				</div>	
+			</div>	
 		</div>
 	</body>
 </html>
